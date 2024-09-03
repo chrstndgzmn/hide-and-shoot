@@ -29,6 +29,9 @@ fog_light_color = Color(0.0515542, 0.0528423, 0.0468163, 1)
 fog_light_energy = 0.83
 fog_density = 0.0634
 fog_sky_affect = 0.184
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.03
+volumetric_fog_albedo = Color(0.651746, 0.849909, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_00srj"]
 size = Vector3(100, 1, 100)
@@ -36,7 +39,7 @@ size = Vector3(100, 1, 100)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4kb5y"]
 size = Vector3(100, 1, 100)
 
-[sub_resource type="Resource" id="Resource_lqex2"]
+[sub_resource type="Resource" id="Resource_vgkbm"]
 script = ExtResource("5_2hirf")
 amount = 700
 enabled = true
@@ -45,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_41spt"]
+[sub_resource type="Resource" id="Resource_0x8x7"]
 script = ExtResource("6_w3akg")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 5)
@@ -56,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_a47qh"]
+[sub_resource type="Resource" id="Resource_cx3h2"]
 script = ExtResource("7_cogyx")
 iterations = 3
 offset_step = 0.2
@@ -68,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_2xau8"]
+[sub_resource type="Resource" id="Resource_kocc1"]
 script = ExtResource("8_3rjjw")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -84,9 +87,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_ot4uy"]
+[sub_resource type="Resource" id="Resource_nqpkp"]
 script = ExtResource("3_wp0oo")
-stack = Array[ExtResource("4_uhrsy")]([SubResource("Resource_lqex2"), SubResource("Resource_41spt"), SubResource("Resource_a47qh"), SubResource("Resource_2xau8")])
+stack = Array[ExtResource("4_uhrsy")]([SubResource("Resource_vgkbm"), SubResource("Resource_0x8x7"), SubResource("Resource_cx3h2"), SubResource("Resource_kocc1")])
 
 [sub_resource type="Resource" id="Resource_03ave"]
 script = ExtResource("11_waylw")
@@ -111,7 +114,7 @@ shape = SubResource("BoxShape3D_4kb5y")
 script = ExtResource("2_xv6mn")
 keep_static_colliders = true
 enable_updates_in_game = true
-modifier_stack = SubResource("Resource_ot4uy")
+modifier_stack = SubResource("Resource_nqpkp")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(10, 10, 10)
 
@@ -143,3 +146,6 @@ shape = SubResource("Resource_03ave")
 
 [node name="Player" parent="." instance=ExtResource("1_dd4sd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82847, 0)
+
+[node name="Player2" parent="." instance=ExtResource("1_dd4sd")]
+transform = Transform3D(-0.995562, 0, 0.0941082, 0, 1, 0, -0.0941082, 0, -0.995562, 0, 1.82847, 6.42519)

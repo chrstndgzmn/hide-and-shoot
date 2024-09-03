@@ -1,7 +1,8 @@
+AnimationPlayer
+Node3D
 DirectionalLight3D
 StaticBody3D
 SpotLight3D
-Node3D
 CSGSphere3D
 CSGBox3D
 ScatterShape
