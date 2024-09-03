@@ -1,7 +1,13 @@
-CSGBox3D
+DirectionalLight3D
+StaticBody3D
+SpotLight3D
 Node3D
+CSGSphere3D
+CSGBox3D
+ScatterShape
+ProtonScatter
+AspectRatioContainer
 Camera3D
 MeshInstance3D
 CharacterBody3D
 CollisionShape3D
-StaticBody3D

@@ -1,25 +1,30 @@
 extends CharacterBody3D
 @onready var head:= $head
 @onready var camera:= $head/Camera3D
+@onready var hand := $hand
+@onready var flashlight := $hand/SpotLight3D 
 
 var speed
-const SPRINT_SPEED = 7.0
-const WALK_SPEED = 5.0
-const JUMP_VELOCITY = 5
+const SPRINT_SPEED = 5.0
+const WALK_SPEED = 3.0
+const JUMP_VELOCITY = 5.0
 const SENSITIVITY = 0.01 
 
 const BASE_FOV = 75.0
-const FOV_CHANGE = 1.5
+const FOV_CHANGE = 1.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 #var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var gravity = 9.81
 
-
 #head bob
-const BOB_FREQUENCY = 2.0;
-const BOB_AMP = 0.08;
+const BOB_FREQUENCY = 3;
+const BOB_AMP = 0.05;
 var t_bob = 0.0
 
+var head_y_axis = 0.0;
+var camera_x_axis = 0.0;
+var flashlight_sens = 2;
+var cameraAcceleration = 0.5;
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED;
@@ -32,9 +37,11 @@ func _unhandled_input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			head.rotate_y(-event.relative.x * SENSITIVITY)
-			camera.rotate_x(-event.relative.y * SENSITIVITY)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad((90)))
+			#head.rotate_y(-event.relative.x * SENSITIVITY)
+			#camera.rotate_x(-event.relative.y * SENSITIVITY)
+			#camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad((90)))
+			head_y_axis += event.relative.x * cameraAcceleration
+			camera_x_axis += event.relative.y * cameraAcceleration
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -75,6 +82,15 @@ func _physics_process(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped;
 	camera.fov = lerp(camera.fov,target_fov, delta * 8.0)
+	
+	#flashlight   
+	hand.rotation.y = lerp(hand.rotation.y, -deg_to_rad(head_y_axis), flashlight_sens * delta) 
+	var flashlight_rotate = lerp(flashlight.rotation.x, -deg_to_rad(camera_x_axis), flashlight_sens * delta) 
+	flashlight.rotation.x = clamp(flashlight_rotate, deg_to_rad(-90), deg_to_rad((90)))  
+	
+	#camera
+	head.rotation.y = -deg_to_rad(head_y_axis) 
+	camera.rotation.x = clamp(-deg_to_rad(camera_x_axis), deg_to_rad(-90), deg_to_rad((90))) 
 	
 	move_and_slide()
 	
