@@ -1,7 +1,0 @@
-res://Scenes/world.tscn
-res://resources/materials/grass.tres
-res://addons/proton_scatter/demos/assets/materials/m_bush.tres
-res://addons/proton_scatter/demos/assets/materials/m_pine_leaves.tres
-res://Scenes/player.tscn
-res://Scripts/Player.gd
-res://todo-list.txt

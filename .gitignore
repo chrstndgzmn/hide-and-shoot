@@ -1,0 +1,9 @@
+# Godot 4 editor/import cache (regenerated on open)
+.godot/
+
+# Godot temp save files
+*.tmp
+
+# Exports
+/build/
+/export/
